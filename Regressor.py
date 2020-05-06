@@ -42,6 +42,12 @@ class MyRegressor:
 
 
     def matrixMult(self,A, B):
+        '''
+
+        :param A:matrix
+        :param B: matrix
+        :return: A*B
+        '''
         return [[sum([float(A[i][m]) * float(B[m][j]) for m in range(len(A[0]))]) for j in range(len(B[0]))] for i in range(len(A))]
 
     def predict(self, xValues):

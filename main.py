@@ -3,6 +3,7 @@ from Regressor import SKLearnRegressor,MyRegressor
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import mean_squared_error
+from utils import MSE
 
 
 #region **INITIALIZE**
@@ -43,19 +44,20 @@ computedTestOutputsSKRegressor=skRegressor.predict(testDataFrame[['Economy..GDP.
 
 
 #region **MEAN SQUARED ERROR**
-errorMyRegressor=mean_squared_error(computedTestOutputsMyRegressor, reader.testData["Happiness.Score"])
+
+errorMyRegressor=MSE(computedTestOutputsMyRegressor, reader.testData["Happiness.Score"])
 errorSKRegressor=mean_squared_error(computedTestOutputsSKRegressor, reader.testData["Happiness.Score"])
 print("MyRegressor error(MSE): "+str(errorMyRegressor))
 print("SKRegressor error(MSE): "+str(errorSKRegressor))
+#print("Difference is : "+str(errorMyRegressor-errorSKRegressor))
 #endregion
 
 
 #region **PLOT DATA**
 ppp=plt.axes(projection='3d')
 
-ppp.scatter3D(reader.testData["Freedom"][:5],reader.testData["Economy..GDP.per.Capita."][:5],reader.testData["Happiness.Score"][:5],label='real',depthshade=0)
-ppp.scatter3D(reader.testData["Freedom"][:5],reader.testData["Economy..GDP.per.Capita."][:5], computedTestOutputsMyRegressor[:5], label='computedMyRegressor',depthshade=0)
-#ppp.scatter3D(reader.testData["Freedom"][:5],reader.testData["Economy..GDP.per.Capita."][:5], computedTestOutputsSKRegressor[:5], label='computedSKRegressor')
+ppp.scatter3D(reader.testData["Freedom"][:10],reader.testData["Economy..GDP.per.Capita."][:10],reader.testData["Happiness.Score"][:10],label='real',depthshade=0)
+ppp.scatter3D(reader.testData["Freedom"][:10],reader.testData["Economy..GDP.per.Capita."][:10], computedTestOutputsMyRegressor[:10], label='computed',depthshade=0)
 ppp.set_xlabel('Freedom')
 ppp.set_ylabel('GDP')
 ppp.set_zlabel('Happiness Score')
